@@ -1,0 +1,5 @@
+uk/co/paulpop/services/controller/JavaSpringServiceControllerTest.class
+uk/co/paulpop/services/exception/handler/HttpExceptionHandlerTest.class
+uk/co/paulpop/services/JavaSpringServiceApplicationTest.class
+uk/co/paulpop/services/controller/JavaSpringServiceControllerIT.class
+uk/co/paulpop/services/exception/handler/HttpExceptionHandlerTest$StubEnum.class

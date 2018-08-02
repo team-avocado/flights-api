@@ -7,9 +7,12 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.co.paulpop.services.exception.handler.HttpExceptionResponse;
+import uk.co.paulpop.services.model.FlightInfo;
 import uk.co.paulpop.services.model.Hello;
 
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
@@ -37,5 +40,16 @@ class JavaSpringServiceController {
             .message(String.format("Hello %s", name))
             .build());
     }
+
+    @PutMapping("/{flightId}")
+    public RequestEntity<FlightInfo> updateFlightInfo(@PathVariable Integer flightId, @RequestBody FlightInfo requestFlightInfo){
+
+    }
+
+    @GetMapping("/flightinfo", produces ={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<FlightInfo> flightInfo(final @PathVariable String) {
+
+    }
+
 
 }
