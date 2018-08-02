@@ -68,7 +68,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMethodArgumentNotValidException_withSingleField_returns400() {
+    public void handleMethodArgumentNotValidExceptionWithSingleFieldReturns400() {
         when(bindingResult.getAllErrors()).thenReturn(Collections.singletonList(FE_1));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -82,7 +82,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMethodArgumentNotValidException_withMultipleFields_returns400() {
+    public void handleMethodArgumentNotValidExceptionWithMultipleFieldsReturns400() {
         when(bindingResult.getAllErrors()).thenReturn(Arrays.asList(FE_1, FE_2));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -99,7 +99,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMethodArgumentNotValidException_for_object_returns400() {
+    public void handleMethodArgumentNotValidExceptionForObjectReturns400() {
         when(bindingResult.getAllErrors()).thenReturn(Collections.singletonList(OE));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -115,7 +115,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleConstraintViolationException_withSingleField_returns400() {
+    public void handleConstraintViolationExceptionWithSingleFieldReturns400() {
         Set<ConstraintViolation<?>> constraintViolations = new HashSet<>();
         constraintViolations.add(constraintViolation1);
 
@@ -132,7 +132,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleConstraintViolationException_withMultipleFields_returns400() {
+    public void handleConstraintViolationExceptionWithMultipleFieldsReturns400() {
         Set<ConstraintViolation<?>> constraintViolations = new HashSet<>();
         constraintViolations.add(constraintViolation1);
         constraintViolations.add(constraintViolation2);
@@ -153,7 +153,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleServletRequestBindingException_withCustomMessage_returns400WithCustomMessage() {
+    public void handleServletRequestBindingExceptionWithCustomMessageReturns400WithCustomMessage() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleServletRequestBindingException(
             new ServletRequestBindingException("Custom message")
         );
@@ -165,7 +165,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMissingServletRequestPartException_shouldReturnCorrectResponse() {
+    public void handleMissingServletRequestPartExceptionShouldReturnCorrectResponse() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleMissingServletRequestPartException(new MissingServletRequestPartException("part"));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
@@ -177,7 +177,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMethodArgumentTypeMismatchException_shouldReturnCorrectResponse() {
+    public void handleMethodArgumentTypeMismatchExceptionShouldReturnCorrectResponse() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentTypeMismatchException(
             new MethodArgumentTypeMismatchException("MismatchValue",
                 StubEnum.class,
@@ -198,7 +198,7 @@ public class HttpExceptionHandlerTest {
      * Tests for {@link HttpExceptionHandler#handleException()}
      */
     @Test
-    public void handleParentException_shouldReturnCorrectResponse() {
+    public void handleParentExceptionShouldReturnCorrectResponse() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleException();
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.INTERNAL_SERVER_ERROR)));
@@ -208,7 +208,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMessageNotReadableException_shouldReturnCorrectResponse() {
+    public void handleMessageNotReadableExceptionShouldReturnCorrectResponse() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleMessageNotReadableException(new HttpMessageNotReadableException(MESSAGE));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
@@ -218,7 +218,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-    public void handleMethodNotSupportedException_shouldReturnCorrectResponse() {
+    public void handleMethodNotSupportedExceptionShouldReturnCorrectResponse() {
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodNotSupportedException(new HttpRequestMethodNotSupportedException(MESSAGE, null, MESSAGE));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));

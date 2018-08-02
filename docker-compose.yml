@@ -12,6 +12,18 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-
+    links:
+      - mysql
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_DATABASE=db_example
+    ports:
+      - "3306:3306"
 networks:
   overlay:
