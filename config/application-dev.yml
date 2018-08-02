@@ -1,8 +1,10 @@
 spring:
   datasource:
-    url: mysql://${DB_HOST}:3306/${DB_DATABASE}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+
 security:
   user:
     name: admin
