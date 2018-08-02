@@ -68,11 +68,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMethodArgumentNotValidExceptionWithSingleFieldReturns400() {
-=======
-    public void handleMethodArgumentNotValidException_withSingleField_returns400() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         when(bindingResult.getAllErrors()).thenReturn(Collections.singletonList(FE_1));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -86,11 +82,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMethodArgumentNotValidExceptionWithMultipleFieldsReturns400() {
-=======
-    public void handleMethodArgumentNotValidException_withMultipleFields_returns400() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         when(bindingResult.getAllErrors()).thenReturn(Arrays.asList(FE_1, FE_2));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -107,11 +99,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMethodArgumentNotValidExceptionForObjectReturns400() {
-=======
-    public void handleMethodArgumentNotValidException_for_object_returns400() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         when(bindingResult.getAllErrors()).thenReturn(Collections.singletonList(OE));
 
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentNotValidException(
@@ -127,11 +115,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleConstraintViolationExceptionWithSingleFieldReturns400() {
-=======
-    public void handleConstraintViolationException_withSingleField_returns400() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         Set<ConstraintViolation<?>> constraintViolations = new HashSet<>();
         constraintViolations.add(constraintViolation1);
 
@@ -148,11 +132,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleConstraintViolationExceptionWithMultipleFieldsReturns400() {
-=======
-    public void handleConstraintViolationException_withMultipleFields_returns400() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         Set<ConstraintViolation<?>> constraintViolations = new HashSet<>();
         constraintViolations.add(constraintViolation1);
         constraintViolations.add(constraintViolation2);
@@ -173,11 +153,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleServletRequestBindingExceptionWithCustomMessageReturns400WithCustomMessage() {
-=======
-    public void handleServletRequestBindingException_withCustomMessage_returns400WithCustomMessage() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleServletRequestBindingException(
             new ServletRequestBindingException("Custom message")
         );
@@ -189,11 +165,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMissingServletRequestPartExceptionShouldReturnCorrectResponse() {
-=======
-    public void handleMissingServletRequestPartException_shouldReturnCorrectResponse() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleMissingServletRequestPartException(new MissingServletRequestPartException("part"));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
@@ -205,11 +177,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMethodArgumentTypeMismatchExceptionShouldReturnCorrectResponse() {
-=======
-    public void handleMethodArgumentTypeMismatchException_shouldReturnCorrectResponse() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodArgumentTypeMismatchException(
             new MethodArgumentTypeMismatchException("MismatchValue",
                 StubEnum.class,
@@ -230,11 +198,7 @@ public class HttpExceptionHandlerTest {
      * Tests for {@link HttpExceptionHandler#handleException()}
      */
     @Test
-<<<<<<< HEAD
     public void handleParentExceptionShouldReturnCorrectResponse() {
-=======
-    public void handleParentException_shouldReturnCorrectResponse() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleException();
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.INTERNAL_SERVER_ERROR)));
@@ -244,11 +208,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMessageNotReadableExceptionShouldReturnCorrectResponse() {
-=======
-    public void handleMessageNotReadableException_shouldReturnCorrectResponse() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleMessageNotReadableException(new HttpMessageNotReadableException(MESSAGE));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));
@@ -258,11 +218,7 @@ public class HttpExceptionHandlerTest {
     }
 
     @Test
-<<<<<<< HEAD
     public void handleMethodNotSupportedExceptionShouldReturnCorrectResponse() {
-=======
-    public void handleMethodNotSupportedException_shouldReturnCorrectResponse() {
->>>>>>> f210cebe7c3ce6838eb648b080531542277b541d
         ResponseEntity<HttpExceptionResponse> result = handler.handleMethodNotSupportedException(new HttpRequestMethodNotSupportedException(MESSAGE, null, MESSAGE));
 
         assertThat(result.getStatusCode(), is(equalTo(HttpStatus.BAD_REQUEST)));

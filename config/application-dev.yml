@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: mysql://mysql:3306/db_example
-    username: springuser
-    password: changeme
+    url: mysql://${DB_HOST}:3306/${DB_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 security:
   user:
     name: admin
