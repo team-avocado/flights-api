@@ -36,10 +36,7 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-  test:
-    docker:
-      - image: circleci/openjdk:8-jdk
 
-    steps:
+
       - run: mvn integration-test
       - run: bash <(curl -s https://codecov.io/bash)
