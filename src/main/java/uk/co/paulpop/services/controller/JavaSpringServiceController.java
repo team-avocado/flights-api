@@ -24,32 +24,55 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 class JavaSpringServiceController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaSpringServiceController.class);
+//
+//    @GetMapping("{name}")
+//    @ResponseBody
+//    @ApiOperation("Says hello to the given name")
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiResponses({
+//        @ApiResponse(code = SC_BAD_REQUEST, message = "Bad request", response = HttpExceptionResponse.class),
+//        @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = "Internal server error", response = HttpExceptionResponse.class)})
+//    public ResponseEntity<Hello> sayHello(final @PathVariable String name) {
+//
+//        LOGGER.info("Received request to say hello to {}", name);
+//
+//        return ResponseEntity.ok(Hello.builder()
+//            .message(String.format("Hello %s", name))
+//            .build());
+//    }
 
-    @GetMapping("/{name}")
+    @GetMapping("{flightId}")
     @ResponseBody
-    @ApiOperation("Says hello to the given name")
+    @ApiOperation("Gives flight info")
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
         @ApiResponse(code = SC_BAD_REQUEST, message = "Bad request", response = HttpExceptionResponse.class),
         @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = "Internal server error", response = HttpExceptionResponse.class)})
-    public ResponseEntity<Hello> sayHello(final @PathVariable String name) {
+    public ResponseEntity<FlightInfo> flightInfo(final @PathVariable Integer flightId) {
 
-        LOGGER.info("Received request to say hello to {}", name);
-
-        return ResponseEntity.ok(Hello.builder()
-            .message(String.format("Hello %s", name))
-            .build());
-    }
-
-    @PutMapping("/{flightId}")
-    public RequestEntity<FlightInfo> updateFlightInfo(@PathVariable Integer flightId, @RequestBody FlightInfo requestFlightInfo){
-
-    }
-
-    @GetMapping("/flightinfo", produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<FlightInfo> flightInfo(final @PathVariable String) {
+        return ResponseEntity.ok(
+                FlightInfo.builder().flightId(4)
+                        .flightNo("AB")
+                        .departureTime(1010)
+                        .arrivalTime(2020)
+                        .gate("A")
+                        .destination("FB")
+                        .status("Fine")
+                .build());
 
     }
+
+//    @PutMapping("/{flightId}")
+//    public RequestEntity<FlightInfo> updateFlightInfo(@PathVariable Integer flightId, @RequestBody FlightInfo requestFlightInfo){
+//
+//        return ResponseEntity.ok(
+//                FlightInfo.builder()
+//                .flightId(String.format("This is flight %s", flightId))
+//                .build());
+//
+//    }
+
+
 
 
 }
