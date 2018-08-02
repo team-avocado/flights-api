@@ -7,9 +7,12 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uk.co.paulpop.services.exception.handler.HttpExceptionResponse;
+import uk.co.paulpop.services.model.FlightInfo;
 import uk.co.paulpop.services.model.Hello;
 
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
@@ -18,25 +21,82 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 @Api(&quot;Java Spring Service API&quot;)
 @RestController
 @RequestMapping(&quot;/api&quot;)
-<span class="fc" id="L21">class JavaSpringServiceController {</span>
+<span class="fc" id="L24">class JavaSpringServiceController {</span>
 
-<span class="fc" id="L23">    private static final Logger LOGGER = LoggerFactory.getLogger(JavaSpringServiceController.class);</span>
+<span class="fc" id="L26">    private static final Logger LOGGER = LoggerFactory.getLogger(JavaSpringServiceController.class);</span>
+//
+//    @GetMapping(&quot;{name}&quot;)
+//    @ResponseBody
+//    @ApiOperation(&quot;Says hello to the given name&quot;)
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiResponses({
+//        @ApiResponse(code = SC_BAD_REQUEST, message = &quot;Bad request&quot;, response = HttpExceptionResponse.class),
+//        @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = &quot;Internal server error&quot;, response = HttpExceptionResponse.class)})
+//    public ResponseEntity&lt;Hello&gt; sayHello(final @PathVariable String name) {
+//
+//        LOGGER.info(&quot;Received request to say hello to {}&quot;, name);
+//
+//        return ResponseEntity.ok(Hello.builder()
+//            .message(String.format(&quot;Hello %s&quot;, name))
+//            .build());
+//    }
+//
+//    @GetMapping(&quot;{flightId}&quot;)
+//    @ResponseBody
+//    @ApiOperation(&quot;Gives flight info&quot;)
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiResponses({
+//        @ApiResponse(code = SC_BAD_REQUEST, message = &quot;Bad request&quot;, response = HttpExceptionResponse.class),
+//        @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = &quot;Internal server error&quot;, response = HttpExceptionResponse.class)})
+//    public ResponseEntity&lt;FlightInfo&gt; flightInfo(final @PathVariable Integer flightId) {
+//
+//        return ResponseEntity.ok(
+//                FlightInfo.builder().flightId(4)
+//                        .flightNo(&quot;AF&quot;)
+//                        .departureTime(1010)
+//                        .arrivalTime(2020)
+//                        .gate(&quot;A&quot;)
+//                        .destination(&quot;FB&quot;)
+//                        .status(&quot;Fine&quot;)
+//                .build());
+//
+//    }
 
-    @GetMapping(&quot;/{name}&quot;)
+    @GetMapping(&quot;{flightId}&quot;)
     @ResponseBody
-    @ApiOperation(&quot;Says hello to the given name&quot;)
+    @ApiOperation(&quot;Gives flight info&quot;)
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses({
-        @ApiResponse(code = SC_BAD_REQUEST, message = &quot;Bad request&quot;, response = HttpExceptionResponse.class),
-        @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = &quot;Internal server error&quot;, response = HttpExceptionResponse.class)})
-    public ResponseEntity&lt;Hello&gt; sayHello(final @PathVariable String name) {
+            @ApiResponse(code = SC_BAD_REQUEST, message = &quot;Bad request&quot;, response = HttpExceptionResponse.class),
+            @ApiResponse(code = SC_INTERNAL_SERVER_ERROR, message = &quot;Internal server error&quot;, response = HttpExceptionResponse.class)})
+    public ResponseEntity&lt;FlightInfo&gt; flightInfo(final @PathVariable Integer flightId) {
 
-<span class="fc" id="L34">        LOGGER.info(&quot;Received request to say hello to {}&quot;, name);</span>
+<span class="nc" id="L74">        return ResponseEntity.ok(</span>
+<span class="nc" id="L75">                FlightInfo.builder().flightId(4)</span>
+<span class="nc" id="L76">                        .flightNo(&quot;AF&quot;)</span>
+<span class="nc" id="L77">                        .departureTime(1010)</span>
+<span class="nc" id="L78">                        .arrivalTime(2020)</span>
+<span class="nc" id="L79">                        .gate(&quot;A&quot;)</span>
+<span class="nc" id="L80">                        .destination(&quot;FB&quot;)</span>
+<span class="nc" id="L81">                        .status(&quot;Fine&quot;)</span>
+<span class="nc" id="L82">                        .build());</span>
 
-<span class="fc" id="L36">        return ResponseEntity.ok(Hello.builder()</span>
-<span class="fc" id="L37">            .message(String.format(&quot;Hello %s&quot;, name))</span>
-<span class="fc" id="L38">            .build());</span>
     }
+
+
+
+//    @PutMapping(&quot;/{flightId}&quot;)
+//    public RequestEntity&lt;FlightInfo&gt; updateFlightInfo(@PathVariable Integer flightId, @RequestBody FlightInfo requestFlightInfo){
+//
+//        return ResponseEntity.ok(
+//                FlightInfo.builder()
+//                .flightId(String.format(&quot;This is flight %s&quot;, flightId))
+//                .build());
+//
+//    }
+
+
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

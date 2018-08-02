@@ -1,4 +1,6 @@
+uk/co/paulpop/services/model/FlightInfo.class
 uk/co/paulpop/services/exception/handler/HttpExceptionResponse$HttpExceptionResponseBuilder.class
+uk/co/paulpop/services/model/FlightInfo$FlightInfoBuilder.class
 uk/co/paulpop/services/exception/handler/HttpExceptionHandler.class
 uk/co/paulpop/services/controller/JavaSpringServiceController.class
 uk/co/paulpop/services/JavaSpringServiceApplication.class
