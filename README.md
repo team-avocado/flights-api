@@ -1,8 +1,8 @@
 # Java Spring Service
 
-[![CircleCI](https://circleci.com/gh/paul-pop/java-spring-service.svg?style=svg)](https://circleci.com/gh/paul-pop/java-spring-service)
-[![codecov](https://codecov.io/gh/paul-pop/java-spring-service/branch/master/graph/badge.svg)](https://codecov.io/gh/paul-pop/java-spring-service)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eb80215eca8745efa74b60bca0e2a5c5)](https://www.codacy.com/app/paul-pop/java-spring-service?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paul-pop/java-spring-service&amp;utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/team-avocado/flights-api.svg?style=svg)](https://circleci.com/gh/team-avocado/flights-api)
+[![codecov](https://codecov.io/gh/team-avocado/flights-api/branch/master/graph/badge.svg)](https://codecov.io/gh/team-avocado/flights-api)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2610775cb02742a383e0f7cb93473290)](https://www.codacy.com/app/JoshuaSimpson/flights-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=team-avocado/flights-api&amp;utm_campaign=Badge_Grade)
 
 This is a skeleton service that uses Java 8 and Spring Boot. It contains the following:
 
@@ -22,7 +22,7 @@ This is a skeleton service that uses Java 8 and Spring Boot. It contains the fol
 
 In order to build the project, you will have to install the following:
 
-* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 
+* [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven](https://maven.apache.org/download.cgi)
 * [Docker](https://www.docker.com/get-docker)
 * This project includes **Lombok Annotations**, this means that in order for your IDE to correctly compile your project you'll need to add the Lombok plugin to your IDE.
@@ -34,7 +34,7 @@ In order to build the project, you will have to install the following:
     2. Build, Execution, Deployment -> Compiler -> Annotation Processors
     3. Enable annotation processing.
     4. Clean, build, invalidate cache and restart after that.
-    
+
 ## Build
 
 ### Maven
