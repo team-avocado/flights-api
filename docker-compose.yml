@@ -4,7 +4,7 @@ services:
   api:
     build: .
     container_name: java-spring-service
-#    image: teamavocado/flights-api
+    image: teamavocado/flights-api
     ports:
       - "8080:8080"
     networks:
@@ -12,18 +12,6 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    links:
-      - mysql
-    depends_on:
-      - mysql
-  mysql:
-    image: mysql:latest
-    environment:
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_DATABASE}
-    ports:
-      - "3306:3306"
+
 networks:
   overlay:

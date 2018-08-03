@@ -69,7 +69,7 @@ jobs:
     - run:
         name: Push image to Dockerhub
         command: |
-          if [[ $CIRCLE_BRANCH == 'master' ]]; then
+          if [[ $CIRCLE_BRANCH == 'pipeline' ]]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
               docker push $IMAGE_NAME:$CIRCLE_SHA1
               docker push $IMAGE_NAME
