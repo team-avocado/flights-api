@@ -108,7 +108,7 @@ workflows:
     - build
     - test
     - docker:
-        context: default
+#        context: default
         requires:
         - build
         - test
