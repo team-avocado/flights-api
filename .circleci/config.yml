@@ -80,7 +80,6 @@ jobs:
               echo Skipping this step as we are not on 'master' or 'pipeline' branch
           fi
 
-
   # 4) Deploy to the development environment - in this case we just run the container with the dev variable
   deploy-dev:
     machine: true
