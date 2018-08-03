@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:${DB_CONNECTION}://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+
+security:
+  user:
+    name: admin
+    password: ${ADMIN_PASSWORD}
