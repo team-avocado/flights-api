@@ -1,42 +1,135 @@
-# Java Maven CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2
+
+defaults: &jdk
+  docker:
+  - image: circleci/openjdk:8-jdk
+    environment:
+      CODECOV_TOKEN: 6ac7716a-c26b-4f40-a77d-584c5dea5aa5
+
+defaults: &docker
+  docker:
+  - image: quay.io/paulpop/docker-compose
+    environment:
+      APP_NAME: flights-api
+      IMAGE_NAME: teamavocado/flights-api
+
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
-
-    environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
-
+    <<: *jdk
     steps:
-      - checkout
+    - checkout
+    - restore_cache:
+        key: dependencies-{{ checksum "pom.xml" }}
+    - run:
+        name: Install dependencies and build deployable jar
+        command: mvn install -DskipTests=true
+    - save_cache:
+        key: dependencies-{{ checksum "pom.xml" }}
+        paths:
+        - ~/.m2
+    - persist_to_workspace:
+        root: .
+        paths:
+        - target/java-spring-service.jar
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+  test:
+    <<: *jdk
+    steps:
+    - checkout
+    - restore_cache:
+        key: dependencies-{{ checksum "pom.xml" }}
+    - run:
+        name: Run all tests and upload to Codecov
+        command: |
+          mvn verify
+            bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+    - save_cache:
+        key: dependencies-{{ checksum "pom.xml" }}
+        paths:
+        - ~/.m2
+    - store_test_results:
+        path: target/surefire-reports
+    - store_test_results:
+        path: target/failsafe-reports
 
-      - run: mvn dependency:go-offline
+  docker:
+    <<: *docker
+    steps:
+    - checkout
+    - setup_remote_docker
+    - attach_workspace:
+        at: .
+    - run:
+        name: Build container with the git commit sha version and latest version
+        command: docker build -t $IMAGE_NAME:$CIRCLE_SHA1 -t $IMAGE_NAME .
+    - run:
+        name: Start container and verify it's healthy
+        command: |
+          set -x
+          docker-compose up -d
+          docker run --network container:$APP_NAME mwendler/wget -qO- \
+            --retry-connrefused --tries=10 --waitretry 6 http://localhost:8080/health
+    - run:
+        name: Push image to Dockerhub
+        command: |
+          if [[ $CIRCLE_BRANCH == 'master' || $CIRCLE_BRANCH == 'pipeline' ]]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
+              docker push $IMAGE_NAME:$CIRCLE_SHA1
+              docker push $IMAGE_NAME
+          else
+              echo Skipping this step as we are not on 'master' or 'pipeline' branch
+          fi
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+  # 4) Deploy to the development environment - in this case we just run the container with the dev variable
+  deploy-dev:
+    machine: true
+    steps:
+    - checkout
+    - add_ssh_keys:
+        fingerprints:
+        - "02:86:26:5b:4e:e6:eb:ea:3b:e6:27:6f:ad:27:88:98"
+    - run:
+        name: Start swarm service in Dev
+        command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154 "docker service rm flights-api-dev && docker service create --name flights-api-dev --publish 90:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=dev teamavocado/flights-api:latest"
+
+  # 5) Deploy to the production environment - in this case we just run the container with the prod variable
+  deploy-prod:
+    machine: true
+    steps:
+    - checkout
+    - add_ssh_keys:
+        fingerprints:
+        - "02:86:26:5b:4e:e6:eb:ea:3b:e6:27:6f:ad:27:88:98"
+    - run:
+        name: Start swarm service in Prod
+        command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154  "docker service rm flights-api-prod && docker service update --name flights-api-prod --publish 80:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=prod teamavocado/flights-api:latest"
 
 
-      - run: mvn integration-test
-      - run: bash <(curl -s https://codecov.io/bash)
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+    - build
+    - test
+    - docker:
+        context: DockerHub
+        requires:
+        - build
+        - test
+    - deploy-dev:
+        context: DockerHub
+        requires:
+        - docker
+        filters:
+          branches:
+            only:
+              - master
+              - pipeline
+    - promote:
+        type: approval
+        requires:
+        - deploy-dev
+    - deploy-prod:
+        context: DockerHub
+        requires:
+        - promote
