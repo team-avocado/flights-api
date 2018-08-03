@@ -90,7 +90,7 @@ jobs:
         - "02:86:26:5b:4e:e6:eb:ea:3b:e6:27:6f:ad:27:88:98"
     - run:
         name: Start swarm service in Dev
-        command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154 "docker service rm flights-api-prod && docker service create --name flights-api-dev --publish 80:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=dev teamavocado/flights-api:latest"
+        command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154 "docker service rm flights-api-dev && docker service create --name flights-api-dev --publish 80:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=dev teamavocado/flights-api:latest"
 
   # 5) Deploy to the production environment - in this case we just run the container with the prod variable
   deploy-prod:
