@@ -8,7 +8,10 @@ defaults: &jdk
 
 defaults: &docker
   docker:
-  - image: teamavocado/flights-api
+  - image: quay.io/paulpop/docker-compose
+    environment:
+      APP_NAME: flights-api
+      IMAGE_NAME: teamavocado/flights-api
 
 jobs:
   build:
