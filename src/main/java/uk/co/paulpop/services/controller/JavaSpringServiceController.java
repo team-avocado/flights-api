@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -46,6 +47,15 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 @RestController
 @RequestMapping("/api")
 class JavaSpringServiceController {
+
+    @Autowired
+    private Environment environment;
+
+    @Value("${AWS_ACCESS_ID:nope}") // value after ':' is the default
+    String AWS_ACCESS_ID;
+
+    @Value("${AWS_SECRET_KEY:nopetwo}")
+    String AWS_SECRET_KEY;
 
     @Autowired
     private FlightInfoRepository flightInfoRepository;
@@ -93,27 +103,16 @@ class JavaSpringServiceController {
     }
 
     private void sendEventToSNS(FlightInfo flight) {
-        LOGGER.info("Received request toe");
-        AmazonSNSClient snsClient = new AmazonSNSClient(new BasicAWSCredentials(, ));
+        LOGGER.info("AWS: " + AWS_ACCESS_ID + ":" + AWS_SECRET_KEY);
+
+        AmazonSNSClient snsClient = new AmazonSNSClient(new BasicAWSCredentials(AWS_ACCESS_ID,  AWS_SECRET_KEY));
         snsClient.setRegion(Region.getRegion(Regions.EU_WEST_1));
-        ObjectMapper om = new ObjectMapper();
-        String json = "";
-        LOGGER.info("Received request two");
-        try {
-            json = om.writeValueAsString(flight);
-            LOGGER.info("Received request tnree");
-        } catch(JsonProcessingException j) {
-            j.printStackTrace();
-        }
-        LOGGER.info("Received request four");
+
         PublishRequest publishRequest = new PublishRequest()
                 .withTopicArn("arn:aws:sns:eu-west-1:122275815213:flightUpdates")
-                .withMessage("This doesn't work yet");
+                .withMessage(flight.getFlightId().toString());
 
         PublishResult result = snsClient.publish(publishRequest);
-        LOGGER.info("Received request five");
         System.out.println(result.toString());
     }
-
-
 }

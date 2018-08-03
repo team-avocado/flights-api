@@ -11,20 +11,7 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - ACCESS_KEY=${ACCESS_KEY}
-      - SECRET_KEY=${SECRET_KEY}
-    links:
-      - mysql
-    depends_on:
-      - mysql
-  mysql:
-    image: mysql:latest
-    environment:
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-    ports:
-      - "3306:3306"
+      - AWS_ACCESS_ID=${AWS_ACCESS_ID}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
 networks:
   overlay:
