@@ -111,7 +111,7 @@ workflows:
     - build
     - test
     - docker:
-#        context: default
+        context: DockerHub
         requires:
         - build
         - test
