@@ -117,6 +117,7 @@ workflows:
         - build
         - test
     - deploy-dev:
+        context: DockerHub
         requires:
         - docker
         filters:
@@ -127,5 +128,6 @@ workflows:
         requires:
         - deploy-dev
     - deploy-prod:
+        context: DockerHub
         requires:
         - promote
