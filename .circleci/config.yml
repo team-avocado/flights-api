@@ -72,12 +72,12 @@ jobs:
     - run:
         name: Push image to Dockerhub
         command: |
-          if [[ $CIRCLE_BRANCH == 'pipeline' ]]; then
+          if [[ $CIRCLE_BRANCH == 'master' || $CIRCLE_BRANCH == 'pipeline' ]]; then
               docker login -u $DOCKER_USER -p $DOCKER_PASSWORD docker.io
               docker push $IMAGE_NAME:$CIRCLE_SHA1
               docker push $IMAGE_NAME
           else
-              echo Skipping this step as we are not on 'master' branch
+              echo Skipping this step as we are not on 'master' or 'pipeline' branch
           fi
 
   # 4) Deploy to the development environment - in this case we just run the container with the dev variable
@@ -122,7 +122,9 @@ workflows:
         - docker
         filters:
           branches:
-            only: pipeline
+            only:
+              - master
+              - pipeline
     - promote:
         type: approval
         requires:
