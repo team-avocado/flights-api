@@ -2,11 +2,13 @@ FROM quay.io/paulpop/jre-alpine:latest
 
 MAINTAINER Paul Pop <paulpop88@gmail.com>
 
+WORKDIR /
+
 ENV ENVIRONMENT default
 ENV ADMIN_PASSWORD admin
 
-COPY config/ ./config/
-COPY target/java-spring-service.jar ./
+COPY config/ /config/
+COPY target/java-spring-service.jar /
 
 HEALTHCHECK --interval=5s --retries=10 CMD curl -fs http://localhost:8080/health || exit 1
 

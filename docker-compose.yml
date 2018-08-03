@@ -3,6 +3,7 @@ version: '3.5'
 services:
   api:
     build: .
+    image: flight-api:tag
     container_name: java-spring-service
     ports:
       - "8080:8080"
