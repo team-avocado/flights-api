@@ -42,10 +42,10 @@ public class JavaSpringServiceControllerIT {
     @Test
     public void whenGetIsCalledWithNoPathParam_thenReturnNotFound() {
         ResponseEntity<HttpExceptionResponse> response = restTemplate.exchange(
-            createURI("/api/"),
-            HttpMethod.GET,
-            new HttpEntity(headers),
-            HttpExceptionResponse.class);
+                createURI("/api/"),
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                HttpExceptionResponse.class);
 
         assertThat(response.getStatusCode(), equalTo(NOT_FOUND));
     }
@@ -53,10 +53,10 @@ public class JavaSpringServiceControllerIT {
     @Test
     public void whenGetIsCalledWithSingleCharPathParam_thenReturnHello() {
         ResponseEntity<Hello> response = restTemplate.exchange(
-            createURI("/api/P"),
-            HttpMethod.GET,
-            new HttpEntity(headers),
-            Hello.class);
+                createURI("/api/P"),
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                Hello.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(Hello.builder().message("Hello P").build()));
@@ -65,10 +65,10 @@ public class JavaSpringServiceControllerIT {
     @Test
     public void whenGetIsCalledWithSingleSpacePathParam_thenReturnHello() {
         ResponseEntity<Hello> response = restTemplate.exchange(
-            createURI("/api/ "),
-            HttpMethod.GET,
-            new HttpEntity(headers),
-            Hello.class);
+                createURI("/api/ "),
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                Hello.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(Hello.builder().message("Hello  ").build()));
@@ -77,10 +77,10 @@ public class JavaSpringServiceControllerIT {
     @Test
     public void whenGetIsCalledWithMultiWordPathParam_thenReturnHello() {
         ResponseEntity<Hello> response = restTemplate.exchange(
-            createURI("/api/Paul Pop"),
-            HttpMethod.GET,
-            new HttpEntity(headers),
-            Hello.class);
+                createURI("/api/Paul Pop"),
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                Hello.class);
 
         assertThat(response.getStatusCode(), equalTo(OK));
         assertThat(response.getBody(), equalTo(Hello.builder().message("Hello Paul Pop").build()));
