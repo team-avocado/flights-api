@@ -87,7 +87,7 @@ jobs:
     - checkout
     - add_ssh_keys:
         fingerprints:
-        - "39:ce:00:5d:75:4c:15:4e:7a:ac:78:47:7f:b8:d5:84"
+        - "02:86:26:5b:4e:e6:eb:ea:3b:e6:27:6f:ad:27:88:98"
     - run:
         name: Start swarm service in Dev
         command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154 "docker service create --name $APP_NAME-dev --publish 80:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=dev $IMAGE_NAME:$CIRCLE_SHA1"
@@ -99,7 +99,7 @@ jobs:
     - checkout
     - add_ssh_keys:
         fingerprints:
-        - "39:ce:00:5d:75:4c:15:4e:7a:ac:78:47:7f:b8:d5:84"
+        - "02:86:26:5b:4e:e6:eb:ea:3b:e6:27:6f:ad:27:88:98"
     - run:
         name: Start swarm service in Dev
         command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154  "docker service create --name $APP_NAME-prod --publish 90:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=prod $IMAGE_NAME:$CIRCLE_SHA1"
