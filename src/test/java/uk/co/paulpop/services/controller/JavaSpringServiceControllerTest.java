@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseBody;
+import uk.co.paulpop.services.model.FlightInfo;
 import uk.co.paulpop.services.model.Hello;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,7 +21,7 @@ public class JavaSpringServiceControllerTest {
     }
 
     @Test
-    public void whenMethodCalledWithEmptyString_thenSayHello() {
+    public void whenMethodCalledWithEmptyStringThenSayHello() {
         ResponseEntity<Hello> response = controller.sayHello("");
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
@@ -27,7 +29,7 @@ public class JavaSpringServiceControllerTest {
     }
 
     @Test
-    public void whenMethodCalledWithSpace_thenSayHello() {
+    public void whenMethodCalledWithSpaceThenSayHello() {
         ResponseEntity<Hello> response = controller.sayHello(" ");
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
@@ -35,7 +37,7 @@ public class JavaSpringServiceControllerTest {
     }
 
     @Test
-    public void whenMethodCalledWithFullName_thenSayHello() {
+    public void whenMethodCalledWithFullNameThenSayHello() {
         ResponseEntity<Hello> response = controller.sayHello("Paul Pop");
 
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
