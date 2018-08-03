@@ -104,6 +104,7 @@ jobs:
         name: Start swarm service in Dev
         command: ssh -o "StrictHostKeyChecking=no" docker@35.178.181.154  "docker service create --name $APP_NAME-prod --publish 90:8080 --replicas=2 --constraint 'node.role == worker' -e ENVIRONMENT=prod $IMAGE_NAME:$CIRCLE_SHA1"
 
+
 workflows:
   version: 2
   build-and-deploy:
