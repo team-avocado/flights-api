@@ -4,7 +4,6 @@ services:
   api:
     build: .
     container_name: java-spring-service
-    image: quay.io/paulpop/java-spring-service
     ports:
       - "8080:8080"
     networks:
@@ -12,6 +11,8 @@ services:
     environment:
       - ENVIRONMENT=${ENVIRONMENT}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - ACCESS_KEY=${ACCESS_KEY}
+      - SECRET_KEY=${SECRET_KEY}
     links:
       - mysql
     depends_on:

@@ -1,5 +1,6 @@
 package uk.co.paulpop.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,9 @@ import java.util.TimeZone;
  */
 @SpringBootApplication
 public class JavaSpringServiceApplication {
+
+    @Autowired
+    private YAMLConfig myConfig;
 
     @PostConstruct
     protected void started() {

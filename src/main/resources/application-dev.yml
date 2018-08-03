@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: mysql://${DB_HOST}:3306/${DB_DATABASE}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    type: mysql
+security:
+  user:
+    name: admin
+    password: ${ADMIN_PASSWORD}

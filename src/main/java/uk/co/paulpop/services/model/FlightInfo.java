@@ -3,13 +3,16 @@ package uk.co.paulpop.services.model;
 import lombok.Builder;
 import lombok.Data;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
 @Builder
-
 @Entity
 public class FlightInfo {
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer flightId;
     private String flightNo;
     private Integer departureTime;
@@ -17,6 +20,14 @@ public class FlightInfo {
     private String gate;
     private String destination;
     private String status;
+
+    public FlightInfo() {
+
+    }
+
+    public FlightInfo(Integer flightId, String flightNo, Integer departureTime, Integer arrivalTime, String gate, String destination, String status) {
+
+    }
 
     public Integer getFlightId() {
         return flightId;
