@@ -117,7 +117,7 @@ workflows:
         - docker
         filters:
           branches:
-            only: master
+            only: pipeline
     - promote:
         type: approval
         requires:
